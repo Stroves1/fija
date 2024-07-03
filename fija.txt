@@ -1,0 +1,209 @@
+#Pregunta 1
+
+import random
+
+class CDato:
+    def __init__(self, provincia, genero, nivel_satisfaccion, edad):
+        self.__provincia = provincia
+        self.__genero = genero
+        self.__nivel_satisfaccion = nivel_satisfaccion
+        self.__edad = edad
+
+    def get_provincia(self):
+        return self.__provincia
+
+    def set_provincia(self, provincia):
+        self.__provincia = provincia
+
+    def get_genero(self):
+        return self.__genero
+
+    def set_genero(self, genero):
+        self.__genero = genero
+
+    def get_nivel_satisfaccion(self):
+        return self.__nivel_satisfaccion
+
+    def set_nivel_satisfaccion(self, nivel_satisfaccion):
+        self.__nivel_satisfaccion = nivel_satisfaccion
+
+    def get_edad(self):
+        return self.__edad
+
+    def set_edad(self, edad):
+        self.__edad = edad
+
+def Reportes(encuestas):
+    edades = [encuesta.get_edad() for encuesta in encuestas]
+    max_edad = max(edades)
+    min_edad = min(edades)
+    print("Edad maxima:", max_edad)
+    print("Edad minima:", min_edad)
+
+    num_satisfechos = sum(1 for encuesta in encuestas if encuesta.get_nivel_satisfaccion() == "Satisfecho")
+    porcentaje_satisfechos = (num_satisfechos / len(encuestas)) * 100
+    porcentaje_insatisfechos = 100 - porcentaje_satisfechos
+    print("Porcentaje de personas satisfechas:", porcentaje_satisfechos, "%")
+    print("Porcentaje de personas insatisfechas:", porcentaje_insatisfechos, "%")
+
+    provincias = ["Lima", "Arequipa", "Piura"]
+    promedios_edad = {}
+    for provincia in provincias:
+        edades_provincia = [encuesta.get_edad() for encuesta in encuestas if encuesta.get_provincia() == provincia]
+        if edades_provincia:
+            promedio = sum(edades_provincia) / len(edades_provincia)
+            promedios_edad[provincia] = promedio
+    for provincia, promedio in promedios_edad.items():
+        print(f"Promedio de edad en {provincia}: {promedio:.2f}")
+
+def mostrardatos(encuestas):
+    for encuesta in encuestas:
+        print("Provincia:", encuesta.get_provincia())
+        print("Genero:", encuesta.get_genero())
+        print("Nivel de Satisfaccion:", encuesta.get_nivel_satisfaccion())
+        print("Edad:", encuesta.get_edad())
+        print("-" * 20)
+
+def main():
+    # Ingresar la cantidad de encuestas
+    while True:
+            N = int(input("Ingrese la cantidad de encuestas (no mayor a 45): "))
+            if 0 < N <= 45:
+                break
+            else:
+                print("El valor debe ser positivo y no mayor a 45.")
+
+    # Generar datos aleatorios para las encuestas
+    provincias = ["Lima", "Arequipa", "Piura"]
+    generos = ["Masculino", "Femenino"]
+    niveles_satisfaccion = ["Satisfecho", "Insatisfecho"]
+    encuestas = []
+    for i in range(N):
+        provincia = random.choice(provincias)
+        genero = random.choice(generos)
+        nivel_satisfaccion = random.choice(niveles_satisfaccion)
+        edad = random.randint(18, 90)
+        encuestas.append(CDato(provincia, genero, nivel_satisfaccion, edad))
+
+    # Mostrar los datos de las encuestas
+    print("Datos de las encuestas:")
+    mostrardatos(encuestas)
+    print("Los reportes de las encuestas son:")
+    Reportes(encuestas)
+    
+main()
+
+#pregunta 2 primo
+
+def menu():
+    print("Menú de opciones ")
+    print("1. Hallar cantidad de digitos primos")
+    print("2. Calcular serie")
+    print("3. Fin")
+    opcion=int(input("Ingresa opcion : "))
+    return opcion
+def cantidad_primos(n):
+   cont_primos=0
+   cadena=str(n)
+   lista_primos=[i for i in cadena if i in ["2","3","5","7"]]
+   print (len(lista_primos))
+def factorial(n):
+    factorial=1
+    for i in range(1,n+1):
+        factorial*=i
+    return factorial
+def Sumatoria(n,x):
+    suma=0
+    for k in range(1,n+1):
+        suma+=((-1)**(k+1) * (2**(k - 1) * x**k) / factorial(k - 1))
+    return suma
+while True:
+    opcion=menu()
+    if opcion==1:
+        n=0
+        while not(n>0):
+            n=int(input("Ingresa n"))
+        primos=cantidad_primos(n)
+        print("La cantidad de dijitos primos es ",primos)
+    elif opcion==2:
+        n=0
+        x=0
+        while not(n>0 and n<=20):
+            n=int(input("Ingresa n"))
+        while not(x>0 and x<=2):
+            x=int(input("Ingresa x"))
+        suma=Sumatoria(n,x)
+        print("La suma es ",suma)
+    else:
+        print("Hasta luego")
+        break
+
+#pregunta 2 impares
+def calcular_suma(n, x):
+  suma=0
+  for k in range(n+1):
+    suma=suma+ (-1)*k * (((x-1)*k+1) / (k+1))
+  print(f"La suma es: ", suma)
+
+
+def cantidad_impares(n):
+  cont=0
+  n=str(n)
+  for num in n:
+    if int(num)%2 !=0:
+      cont+=1
+  print("La cantidad de digitos que son impares son: ", cont)
+
+
+def menu():
+  print("---Menu---")
+  print("1. Cantidad de digitos impares")
+  print("2. Suma de la serie")
+  print("3. Fin")
+
+
+while True:
+  menu()
+  opc=int(input("Ingrese opcion (1-2): "))
+
+  if opc==1:
+    n=0
+    while n<=0:
+      n=int(input("Ingrese numero: "))
+    cantidad_impares(n)
+  elif opc==2:
+    x=0
+    n=0
+    while  x<=0 or x>2:
+      x=int(input("Ingrese X: "))
+    while  n<=0 or n>=20:
+      n=int(input("Ingrese N: "))
+    calcular_suma(n,x)
+  else:
+    print("FIN")
+    break
+
+#pregunta 3
+import random as r
+def EsBisiesto(año):
+    if año%4!=0:
+        return True
+    else:
+        return False
+n=-1
+lista=[]
+while not(n>=0 and n<45):
+    n=int(input("Ingrese el numero de elementos de años: "))
+for i in range(n):
+    lista.append(r.randint(800,2050))
+lista_bisiestos=[año for año in lista if EsBisiesto(año) == True]
+print (lista)
+print (lista_bisiestos)
+lista_nobisiestos=[año for año in lista if año not in lista_bisiestos]
+print (lista_nobisiestos)
+maximo=max(lista)
+print(maximo)
+veces_maximo=lista.count(maximo)
+print(veces_maximo)
+lista.sort(reverse=True)
+print(lista)
