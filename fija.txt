@@ -207,3 +207,108 @@ veces_maximo=lista.count(maximo)
 print(veces_maximo)
 lista.sort(reverse=True)
 print(lista)
+
+#PREGUNTA 4
+import random
+
+class CParticipante:
+    def __init__(self, edad, sexo, articulo, resultado):
+        self.__edad = edad
+        self.__sexo = sexo
+        self.__articulo = articulo
+        self.__resultado = resultado
+
+    def get_edad(self):
+        return self.__edad
+
+    def get_sexo(self):
+        return self.__sexo
+
+    def get_articulo(self):
+        return self.__articulo
+
+    def get_resultado(self):
+        return self.__resultado
+
+    def set_edad(self, edad):
+        self.__edad = edad
+
+    def set_sexo(self, sexo):
+        self.__sexo = sexo
+
+    def set_articulo(self, articulo):
+        self.__articulo = articulo
+
+    def set_resultado(self, resultado):
+        self.__resultado = resultado
+
+    def consultar_participante(self):
+        return (f"Edad: {self.__edad}°, Sexo: {self.__sexo}°, Artículo: {self.__articulo}°, Resultado: {self.__resultado}")
+
+
+def mayores_65(lista_datos):
+    mayores65 = len([datos.get_edad() for datos in lista_datos if datos.get_edad() > 65])
+    print(f"Mayores de 65 años que presentaron un artículo científico: {mayores65}")
+
+def promedio_edad_v_machlearn(lista_datos):
+    lista_edades = [datos.get_edad() for datos in lista_datos if datos.get_articulo() == "Machine Learning" and datos.get_sexo() == "Masculino"]
+    if lista_edades:
+        promedio = sum(lista_edades) / len(lista_edades)
+        print(f"Promedio de edad de varones que presentaron un artículo sobre Machine Learning: {promedio:.2f}")
+    else:
+        print("No se encontraron varones que presentaron un artículo sobre Machine Learning")
+
+def resultados_menor_frecuencia(lista_datos):
+    cont1 = cont2 = cont3 = 0
+    for datos in lista_datos:
+        if datos.get_resultado() == "Bajo":
+            cont1 += 1
+        elif datos.get_resultado() == "Regular":
+            cont2 += 1
+        elif datos.get_resultado() == "Bueno":
+            cont3 += 1
+
+    menor_frecuencia = min(cont1, cont2, cont3)
+    if menor_frecuencia == cont1:
+        resultadomenor = "Bajo"
+    elif menor_frecuencia == cont2:
+        resultadomenor = "Regular"
+    else:
+        resultadomenor = "Bueno"
+        
+    print(f"Resultado/s de revisión que tienen la menor frecuencia: {resultadomenor}")
+
+def edad_mujer_no_bigdata(lista_datos):
+    lista_edades_nobigdata = [datos.get_edad() for datos in lista_datos if datos.get_sexo() == "Femenino" and datos.get_articulo() != "Big Data"]
+    if lista_edades_nobigdata:
+        print(f"Edad/es de mujeres que no presentaron un artículo sobre Big Data: {lista_edades_nobigdata}")
+    else:
+        print("No se encontraron edades de mujeres que no presentaron un artículo sobre Big Data")
+
+lista_sexo = ["Femenino", "Masculino"]
+lista_articulo = ["Big Data", "Machine Learning", "Ingeniería de Software"]
+lista_resultado = ["Bajo", "Regular", "Bueno"]
+lista_datos = []
+
+while True:
+    n = int(input("Ingrese la cantidad de participantes (máximo 70): "))
+    if 1 <= n <= 70:
+        break
+    else:
+        print("El número debe ser positivo y no mayor a 70.")
+
+for i in range(1, n + 1):
+    edad = random.randint(18, 76)
+    sexo = random.choice(lista_sexo)
+    articulo = random.choice(lista_articulo)
+    resultado = random.choice(lista_resultado)
+    datos = CParticipante(edad, sexo, articulo, resultado)
+    lista_datos.append(datos)
+
+for datos in lista_datos:
+    print(datos.consultar_participante())
+
+mayores_65(lista_datos)
+promedio_edad_v_machlearn(lista_datos)
+resultados_menor_frecuencia(lista_datos)
+edad_mujer_no_bigdata(lista_datos)
